@@ -1,14 +1,34 @@
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CheckOutOrder {
+
+    List<Item> itemList;
+    List<String> activeDeals = new ArrayList<>();
     public CheckOutOrder() {
-    }
-
-    void addToOrder(String itemName){
 
     }
 
-    private void addToOrder(String itemName, double itemWeight){
+    public CheckOutOrder(List<String> activeDeals){
+        this.activeDeals = activeDeals;
+    }
+
+    void addToOrder(String itemName) throws Exception{
+        for(Item c : Item.values()){
+            if(c.name().equals(itemName)){
+                itemList.add(c);
+
+            }
+            else {
+                throw new Exception(itemName + " not found");
+            }
+        }
+    }
+
+    private void addToOrder(String itemName,
+                            double itemWeight)
+            throws Exception {
 
     }
 
@@ -20,6 +40,8 @@ public class CheckOutOrder {
 
         return null;
     }
+
+
 
     //need methods for markdown
     //need methods for when there is a promo like by 1 get 1 free
