@@ -8,34 +8,34 @@ public class ItemTotalTests {
 
     @Test
     void scannedItemsTotalTest1(){
-        Cart cart = new Cart();
-        cart.add("banana");
-        cart.add("mango");
-        cart.add("tyson drumstick");
-        BigDecimal totalOfItems = cart.getTotal();
+        CheckOutOrder checkOutOrder = new CheckOutOrder();
+        checkOutOrder.addToOrder("banana");
+        checkOutOrder.addToOrder("mango");
+        checkOutOrder.addToOrder("tyson drumstick");
+        BigDecimal totalOfItems = checkOutOrder.getTotalAmount();
         assertEquals(10, totalOfItems);
     }
 
     @Test
     void scannedItemsTotalTest2(){
-        Cart cart = new Cart();
-        cart.add("grapes");
-        cart.add("avocado");
-        cart.add("beans");
-        BigDecimal totalOfItems = cart.getTotal();
+        CheckOutOrder checkOutOrder = new CheckOutOrder();
+        checkOutOrder.addToOrder("grapes");
+        checkOutOrder.addToOrder("avocado");
+        checkOutOrder.addToOrder("beans");
+        BigDecimal totalOfItems = checkOutOrder.getTotalAmount();
         assertEquals(12.73, totalOfItems);
     }
 
     @Test
     void scannedItemsTotalTest3(){
-        Cart cart = new Cart();
-        cart.add("apples");
-        cart.add("oranges");
-        cart.add("tomatoes");
-        cart.remove("apples");
-        cart.add("avocado");
-        cart.remove("oranges");
-        BigDecimal totalOfItems = cart.getTotal();
+        CheckOutOrder checkOutOrder = new CheckOutOrder();
+        checkOutOrder.addToOrder("apples");
+        checkOutOrder.addToOrder("oranges");
+        checkOutOrder.addToOrder("tomatoes");
+        checkOutOrder.removeFromOrder("apples");
+        checkOutOrder.addToOrder("avocado");
+        checkOutOrder.removeFromOrder("oranges");
+        BigDecimal totalOfItems = checkOutOrder.getTotalAmount();
         assertEquals(3.74, totalOfItems);
     }
 }
