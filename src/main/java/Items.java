@@ -1,0 +1,3 @@
+public enum Items {
+    BANANA, CARROT, PINEAPPLE, NOODLES, STRAWBERRY
+}
