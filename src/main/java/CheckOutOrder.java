@@ -14,21 +14,21 @@ public class CheckOutOrder {
         this.activeDeals = activeDeals;
     }
 
-    void addToOrder(String itemName) throws Exception{
+    void addToOrder(String itemName) throws IllegalArgumentException{
         for(Item c : Item.values()){
             if(c.name().equals(itemName)){
                 itemList.add(c);
 
             }
             else {
-                throw new Exception(itemName + " not found");
+                throw new IllegalArgumentException(itemName + " not found");
             }
         }
     }
 
     private void addToOrder(String itemName,
                             double itemWeight)
-            throws Exception {
+            throws IllegalArgumentException {
 
     }
 
