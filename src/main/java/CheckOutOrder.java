@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CheckOutOrder {
 
-    List<Item> itemList;
+    List<String> itemList = new ArrayList<>();
     List<String> activeDeals = new ArrayList<>();
     public CheckOutOrder() {
 
@@ -16,9 +16,10 @@ public class CheckOutOrder {
 
     void addToOrder(String itemName) throws IllegalArgumentException{
         for(Item c : Item.values()){
-            if(c.name().equals(itemName)){
-                itemList.add(c);
-
+            if(c.name().equalsIgnoreCase(itemName)){
+                String item = c.name();
+                itemList.add(item);
+                break;
             }
             else {
                 throw new IllegalArgumentException(itemName + " not found");
@@ -33,7 +34,7 @@ public class CheckOutOrder {
     }
 
     void removeFromOrder(String itemName){
-
+        itemList.remove(itemName);
     }
 
     public BigDecimal getTotalAmount() {
