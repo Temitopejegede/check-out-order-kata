@@ -13,7 +13,7 @@ public class ItemTotalTests {
         checkOutOrder.addToOrder("mango");
         checkOutOrder.addToOrder("tyson drumstick");
         BigDecimal totalOfItems = checkOutOrder.getTotalAmount();
-        assertEquals(10, totalOfItems);
+        assertEquals(BigDecimal.valueOf(10), totalOfItems);
     }
 
     @Test
@@ -23,7 +23,7 @@ public class ItemTotalTests {
         checkOutOrder.addToOrder("avocado");
         checkOutOrder.addToOrder("beans");
         BigDecimal totalOfItems = checkOutOrder.getTotalAmount();
-        assertEquals(12.73, totalOfItems);
+        assertEquals(BigDecimal.valueOf(12.73), totalOfItems);
     }
 
     @Test
@@ -36,6 +36,6 @@ public class ItemTotalTests {
         checkOutOrder.addToOrder("avocado");
         checkOutOrder.removeFromOrder("oranges");
         BigDecimal totalOfItems = checkOutOrder.getTotalAmount();
-        assertEquals(3.74, totalOfItems);
+        assertEquals(BigDecimal.valueOf(3.47), totalOfItems);
     }
 }
