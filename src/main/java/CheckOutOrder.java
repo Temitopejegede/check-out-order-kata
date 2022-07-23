@@ -3,17 +3,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class CheckOutOrder {
 
     List<String> itemList = new ArrayList<>();
+
+    public Map<String, BigDecimal> getAllItemsAndPrices() {
+        return allItemsAndPrices;
+    }
+
     List<String> activeDeals = new ArrayList<>();
 
-    Map<String, BigDecimal> prices = new HashMap<>();
+    private static Map<String, BigDecimal> allItemsAndPrices = new HashMap<>();
+
+    private static Map<String, BigDecimal> finalOrder = new HashMap<>();
 
     public BigDecimal total = BigDecimal.valueOf(0);
     public CheckOutOrder() {
-
+        makePriceList();
     }
 
     public CheckOutOrder(List<String> activeDeals){
@@ -22,16 +30,16 @@ public class CheckOutOrder {
 
     void addToOrder(String itemName)
             throws IllegalArgumentException{
-        for(Item c : Item.values()){
-            if(c.name().equalsIgnoreCase(itemName)){
-                String item = c.name();
-                itemList.add(item);
+        boolean found = false;
+        for(Map.Entry<String, BigDecimal> entry : allItemsAndPrices.entrySet()){
+            if(entry.getKey().equalsIgnoreCase(itemName)){
+                found = true;
+                finalOrder.put(entry.getKey().toLowerCase(), entry.getValue());
+                total = total.add(new BigDecimal(String.valueOf(entry.getValue())));
                 break;
             }
-            else {
-                throw new IllegalArgumentException(itemName + " not found");
-            }
         }
+        if(!found) throw new IllegalArgumentException(itemName + " not found");
     }
 
     private void addToOrder(String itemName,
@@ -41,7 +49,7 @@ public class CheckOutOrder {
     }
 
     void removeFromOrder(String itemName){
-        itemList.remove(itemName);
+        finalOrder.remove(itemName.toLowerCase());
     }
 
     public BigDecimal getTotalAmount() {
@@ -50,11 +58,14 @@ public class CheckOutOrder {
 
     public void makePriceList(){
         for(Item c : Item.values()){
-            prices.put(c.name(), c.getPrice());
+            allItemsAndPrices.put(c.name().toLowerCase(), c.getPrice());
         }
     }
 
 
+    public Map<String, BigDecimal> getFinalOrder() {
+        return finalOrder;
+    }
 
     //need methods for markdown
     //need methods for when there is a promo like by 1 get 1 free
