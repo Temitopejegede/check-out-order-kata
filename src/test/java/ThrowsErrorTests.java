@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -23,5 +25,16 @@ public class ThrowsErrorTests {
         });
     }
 
+    @Test
+    void itemNotFound3(){
 
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    CheckOutOrder checkOutOrder = new CheckOutOrder();
+                    checkOutOrder.addToOrder("banana");
+                    checkOutOrder.addToOrder("mango");
+                    checkOutOrder.addToOrder("tyson drumstick");
+                    BigDecimal totalOfItems = checkOutOrder.getTotalAmount();
+                });
+    }
 }
