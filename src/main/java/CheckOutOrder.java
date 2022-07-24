@@ -42,6 +42,10 @@ public class CheckOutOrder {
         if(!found) throw new IllegalArgumentException(itemName + " not found");
     }
 
+    void addToOrder(String itemName, int itemQuantity){
+
+    }
+
     private void addToOrder(String itemName,
                             double itemWeight)
             throws IllegalArgumentException {
