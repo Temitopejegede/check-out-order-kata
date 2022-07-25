@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.nio.channels.Pipe;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -17,12 +18,12 @@ public class ItemListTests {
         checkOutOrder.addToOrder("Carrot");
         checkOutOrder.addToOrder("Pineapple");
         Map<String, BigDecimal> finalOrder = checkOutOrder.getFinalOrder();
-        Set<String> strings = finalOrder.keySet();
-        Set<String> answer = new HashSet<>();
-        answer.add("banana");
-        answer.add("carrot");
-        answer.add("pineapple");
-        assertEquals(answer, strings);
+        Set<String> itemNames = finalOrder.keySet();
+        Set<String> expected = new HashSet<>();
+        expected.add("banana");
+        expected.add("carrot");
+        expected.add("pineapple");
+        assertEquals(expected, itemNames);
     }
 
     @Test
@@ -33,12 +34,54 @@ public class ItemListTests {
         checkOutOrder.addToOrder("Pineapple");
         checkOutOrder.removeFromOrder("Pineapple");
         Map<String, BigDecimal> finalOrder = checkOutOrder.getFinalOrder();
-        Set<String> strings = finalOrder.keySet();
-        Set<String> answer = new HashSet<>();
-        answer.add("banana");
-        answer.add("carrot");
-        assertEquals(answer, strings);
+        Set<String> itemNames = finalOrder.keySet();
+        Set<String> expected = new HashSet<>();
+        expected.add("banana");
+        expected.add("carrot");
+        assertEquals(expected, itemNames);
     }
 
+    @Test
+    void itemListTest3(){
+        CheckOutOrder checkOutOrder = new CheckOutOrder();
+        checkOutOrder.addToOrder("Banana");
+        checkOutOrder.addToOrder("Carrot");
+        checkOutOrder.addToOrder("Pineapple");
+        checkOutOrder.addToOrder("Pineapple");
+        Map<String, BigDecimal> finalOrder = checkOutOrder.getFinalOrder();
+        Set<String> itemNames = finalOrder.keySet();
+        Set<String> expected = new HashSet<>();
+        expected.add("banana");
+        expected.add("carrot");
+        expected.add("pineapple");
+//        expected.add("pineapple");
+        assertEquals(expected, itemNames);
+    }
+
+    @Test
+    void itemListTest4(){
+        CheckOutOrder checkOutOrder = new CheckOutOrder();
+        checkOutOrder.addToOrder("Banana", 2);
+        checkOutOrder.addToOrder("Carrot", 5);
+        checkOutOrder.addToOrder("pineapple", 7);
+        Map<String, BigDecimal> finalOrder = checkOutOrder.getFinalOrder();
+        Set<String> itemNames = finalOrder.keySet();
+        Set<String> expected = new HashSet<>();
+        expected.add("Banana");
+        expected.add("Banana");
+        expected.add("Carrot");
+        expected.add("Carrot");
+        expected.add("Carrot");
+        expected.add("Carrot");
+        expected.add("Carrot");
+        expected.add("pineapple");
+        expected.add("pineapple");
+        expected.add("pineapple");
+        expected.add("pineapple");
+        expected.add("pineapple");
+        expected.add("pineapple");
+        expected.add("pineapple");
+        assertEquals(expected, itemNames);
+    }
 
 }
