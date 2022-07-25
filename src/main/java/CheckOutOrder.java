@@ -57,6 +57,10 @@ public class CheckOutOrder {
         total = total.subtract(new BigDecimal(String.valueOf(allItemsAndPrices.get(itemName.toLowerCase()))));
     }
 
+    void removeFromOrder(String itemName, int itemQuantity){
+
+    }
+
     public BigDecimal getTotalAmount() {
         return total;
     }
