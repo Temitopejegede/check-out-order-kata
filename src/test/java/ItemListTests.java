@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.nio.channels.Pipe;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -17,13 +18,12 @@ public class ItemListTests {
         checkOutOrder.addToOrder("Banana");
         checkOutOrder.addToOrder("Carrot");
         checkOutOrder.addToOrder("Pineapple");
-        Map<String, BigDecimal> finalOrder = checkOutOrder.getFinalOrder();
-        Set<String> itemNames = finalOrder.keySet();
-        Set<String> expected = new HashSet<>();
+        ArrayList<String> finalOrder = checkOutOrder.getFinalOrder();
+        ArrayList<String> expected = new ArrayList<>();
         expected.add("banana");
         expected.add("carrot");
         expected.add("pineapple");
-        assertEquals(expected, itemNames);
+        assertEquals(expected, finalOrder);
     }
 
     @Test
@@ -33,12 +33,11 @@ public class ItemListTests {
         checkOutOrder.addToOrder("Carrot");
         checkOutOrder.addToOrder("Pineapple");
         checkOutOrder.removeFromOrder("Pineapple");
-        Map<String, BigDecimal> finalOrder = checkOutOrder.getFinalOrder();
-        Set<String> itemNames = finalOrder.keySet();
-        Set<String> expected = new HashSet<>();
+        ArrayList<String> finalOrder = checkOutOrder.getFinalOrder();
+        ArrayList<String> expected = new ArrayList<>();
         expected.add("banana");
         expected.add("carrot");
-        assertEquals(expected, itemNames);
+        assertEquals(expected, finalOrder);
     }
 
     @Test
@@ -48,14 +47,13 @@ public class ItemListTests {
         checkOutOrder.addToOrder("Carrot");
         checkOutOrder.addToOrder("Pineapple");
         checkOutOrder.addToOrder("Pineapple");
-        Map<String, BigDecimal> finalOrder = checkOutOrder.getFinalOrder();
-        Set<String> itemNames = finalOrder.keySet();
-        Set<String> expected = new HashSet<>();
+        ArrayList<String> finalOrder = checkOutOrder.getFinalOrder();
+        ArrayList<String> expected = new ArrayList<>();
         expected.add("banana");
         expected.add("carrot");
         expected.add("pineapple");
-//        expected.add("pineapple");
-        assertEquals(expected, itemNames);
+        expected.add("pineapple");
+        assertEquals(expected, finalOrder);
     }
 
     @Test
@@ -64,9 +62,8 @@ public class ItemListTests {
         checkOutOrder.addToOrder("Banana", 2);
         checkOutOrder.addToOrder("Carrot", 5);
         checkOutOrder.addToOrder("pineapple", 7);
-        Map<String, BigDecimal> finalOrder = checkOutOrder.getFinalOrder();
-        Set<String> itemNames = finalOrder.keySet();
-        Set<String> expected = new HashSet<>();
+        ArrayList<String> finalOrder = checkOutOrder.getFinalOrder();
+        ArrayList<String> expected = new ArrayList<>();
         expected.add("banana");
         expected.add("banana");
         expected.add("carrot");
@@ -81,7 +78,7 @@ public class ItemListTests {
         expected.add("pineapple");
         expected.add("pineapple");
         expected.add("pineapple");
-        assertEquals(expected, itemNames);
+        assertEquals(expected, finalOrder);
     }
 
 }
