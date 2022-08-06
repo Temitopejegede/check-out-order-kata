@@ -16,11 +16,12 @@ public class CheckOutOrder {
         return allItemsAndPrices;
     }
 
+    //maybe make a "deals" class with custom attributes
     List<String> activeDeals = new ArrayList<>();
 
-    private static Map<String, BigDecimal> allItemsAndPrices = new HashMap<>();
+    private  Map<String, BigDecimal> allItemsAndPrices = new HashMap<>();
 
-    private static Map<String, BigDecimal> finalOrder = new HashMap<>();
+    private ArrayList<String> finalOrder = new ArrayList<>();
 
     public BigDecimal total = BigDecimal.valueOf(0);
     public CheckOutOrder() {
@@ -33,20 +34,17 @@ public class CheckOutOrder {
 
     void addToOrder(String itemName)
             throws IllegalArgumentException{
-        boolean found = false;
-        for(Map.Entry<String, BigDecimal> entry : allItemsAndPrices.entrySet()){
-            if(entry.getKey().equalsIgnoreCase(itemName)){
-                found = true;
-                finalOrder.put(entry.getKey().toLowerCase(), entry.getValue());
-                total = total.add(new BigDecimal(String.valueOf(entry.getValue())));
-                break;
-            }
-        }
-        if(!found) throw new IllegalArgumentException(itemName + " not found");
+        if(!getAllItemsAndPrices().containsKey(itemName.toLowerCase())) throw new IllegalArgumentException(itemName + " not found");
+        finalOrder.add(itemName.toLowerCase());
+        total = total.add(allItemsAndPrices.get(itemName.toLowerCase()));
     }
 
-    void addToOrder(String itemName, int itemQuantity){
-
+    void addToOrder(String itemName, int itemQuantity)
+            throws IllegalArgumentException{
+        if(!getAllItemsAndPrices().containsKey(itemName.toLowerCase())) throw new IllegalArgumentException(itemName + " not found");
+        for(int i = 0; i< itemQuantity; i++) finalOrder.add(itemName.toLowerCase());
+        BigDecimal cost = getAllItemsAndPrices().get(itemName.toLowerCase()).multiply(new BigDecimal(itemQuantity));
+        total = total.add(cost);
     }
 
     private void addToOrder(String itemName,
@@ -57,7 +55,7 @@ public class CheckOutOrder {
 
     void removeFromOrder(String itemName){
         finalOrder.remove(itemName.toLowerCase());
-        total = total.subtract(new BigDecimal(String.valueOf(allItemsAndPrices.get(itemName.toLowerCase()))));
+        total = total.subtract(allItemsAndPrices.get(itemName.toLowerCase()));
     }
 
     void removeFromOrder(String itemName, int itemQuantity){
@@ -75,7 +73,7 @@ public class CheckOutOrder {
     }
 
 
-    public Map<String, BigDecimal> getFinalOrder() {
+    public ArrayList<String> getFinalOrder() {
         return finalOrder;
     }
 
