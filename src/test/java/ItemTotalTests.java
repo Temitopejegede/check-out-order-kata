@@ -1,9 +1,9 @@
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ItemTotalTests {
 
@@ -30,5 +30,20 @@ public class ItemTotalTests {
         checkOutOrder.removeFromOrder("strawberry");
         BigDecimal totalOfItems = checkOutOrder.getTotalAmount().stripTrailingZeros();
         assertEquals(BigDecimal.valueOf(1), totalOfItems);
+    }
+
+    @Test
+    void scannedItemsTotalTest4(){
+        CheckOutOrder checkOutOrder = new CheckOutOrder();
+        checkOutOrder.addToOrder("Banana", 2);
+        checkOutOrder.addToOrder("Carrot", 5);
+        checkOutOrder.addToOrder("pineapple", 7);
+        checkOutOrder.removeFromOrder("Banana", 2);
+        checkOutOrder.removeFromOrder("Carrot", 5);
+        checkOutOrder.removeFromOrder("pineapple", 7);
+        BigDecimal finalAmount = checkOutOrder.getTotalAmount();
+        BigDecimal expected = new BigDecimal(0);
+        assertEquals(expected.precision(), finalAmount.precision());
+
     }
 }
