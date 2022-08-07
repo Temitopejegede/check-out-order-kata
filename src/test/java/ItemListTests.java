@@ -1,14 +1,8 @@
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-import java.nio.channels.Pipe;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ItemListTests {
 
@@ -78,6 +72,20 @@ public class ItemListTests {
         expected.add("pineapple");
         expected.add("pineapple");
         expected.add("pineapple");
+        assertEquals(expected, finalOrder);
+    }
+
+    @Test
+    void itemListTest5(){
+        CheckOutOrder checkOutOrder = new CheckOutOrder();
+        checkOutOrder.addToOrder("Banana", 2);
+        checkOutOrder.addToOrder("Carrot", 5);
+        checkOutOrder.addToOrder("pineapple", 7);
+        checkOutOrder.removeFromOrder("Banana", 2);
+        checkOutOrder.removeFromOrder("Carrot", 5);
+        checkOutOrder.removeFromOrder("pineapple", 7);
+        ArrayList<String> finalOrder = checkOutOrder.getFinalOrder();
+        ArrayList<String> expected = new ArrayList<>();
         assertEquals(expected, finalOrder);
     }
 
